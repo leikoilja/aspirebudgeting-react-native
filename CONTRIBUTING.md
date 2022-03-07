@@ -51,4 +51,11 @@ People _love_ thorough bug reports. I'm not even kidding.
 ## Use a consistent coding style
 
 
+## Debug the application
+We are using [react-native-debugger](https://github.com/jhen0409/react-native-debugger)
+to debug the application as well as it's Redux state.
+Please follow the official documentation to set it up on your machine.
+Make sure to connect react-native-debugger to port 19000 as described
+in Expo [documentation](https://docs.expo.dev/workflow/debugging/#react-native-debugger).
+
 ## Test your modifications
