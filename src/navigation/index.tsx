@@ -21,11 +21,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
-<<<<<<< HEAD
-import TabTwoScreen from "../screens/TabTwoScreen";
-=======
 import SettingsScreen from "../screens/SettingsScreen";
->>>>>>> Add google auth API, auth reducer + load user profile
 import {
   RootStackParamList,
   RootTabParamList,
