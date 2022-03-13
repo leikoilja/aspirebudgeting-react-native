@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+echo "running pre-commit"
+yarn run check-format && yarn run lint
