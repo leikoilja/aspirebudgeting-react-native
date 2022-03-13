@@ -1,3 +1,10 @@
+/*
+ eslint-disable
+ @typescript-eslint/no-unsafe-call,
+ @typescript-eslint/no-unsafe-return,
+ @typescript-eslint/no-unsafe-member-access
+ */
+import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 import { RootStackScreenProps } from "../types";

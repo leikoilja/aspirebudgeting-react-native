@@ -1,3 +1,8 @@
+/*
+ eslint-disable
+ @typescript-eslint/no-unsafe-call,
+ */
+import React from "react";
 import { useState } from "react";
 import { Button, TextInput, StyleSheet, Text, View } from "react-native";
 import { useDispatch } from "react-redux";

@@ -1,9 +1,15 @@
+/*
+ eslint-disable
+ @typescript-eslint/no-unsafe-assignment,
+ @typescript-eslint/no-unsafe-call,
+ @typescript-eslint/no-unsafe-return,
+ @typescript-eslint/no-unsafe-member-access
+ */
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
-import { RootTabScreenProps } from "../types";
-
-const TabOneScreen = ({ navigation }: RootTabScreenProps<"TabOne">) => {
+const TabOneScreen = () => {
   const user = useSelector((state) => state.user);
 
   return (
