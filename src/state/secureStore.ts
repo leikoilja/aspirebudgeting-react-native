@@ -1,3 +1,7 @@
+/*
+ eslint-disable
+ @typescript-eslint/no-unsafe-argument,
+ */
 import * as SecureStore from "expo-secure-store";
 import {
   STORAGE_KEY_GOOGLE_ACCESS_TOKEN,
@@ -12,7 +16,7 @@ export const saveTokensToSecureStore = async ({
   if (refreshToken)
     await SecureStore.setItemAsync(
       STORAGE_KEY_GOOGLE_REFRESH_TOKEN,
-      refreshToken,
+      refreshToken
     );
 };
 

@@ -1,13 +1,17 @@
+/*
+ eslint-disable
+ @typescript-eslint/no-unsafe-argument,
+ @typescript-eslint/no-unsafe-assignment,
+ @typescript-eslint/no-unsafe-call,
+ @typescript-eslint/no-unsafe-member-access,
+ @typescript-eslint/restrict-template-expressions
+ */
 import { Platform } from "react-native";
 import * as Google from "expo-google-app-auth";
 import * as SecureStore from "expo-secure-store";
-import { AuthData, IGAuth } from "./types";
 import { store } from "@state/store";
 import { updateGoogleAccessTokenExpiry } from "@actions/AuthActions";
-import {
-  saveTokensToSecureStore,
-  removeTokensFromSecureStore,
-} from "@state/secureStore";
+import { saveTokensToSecureStore } from "@state/secureStore";
 import {
   GOOGLE_SCOPE_USER_EMAIL,
   GOOGLE_SCOPE_USER_PROFILE,
@@ -16,7 +20,7 @@ import {
 } from "@const";
 
 export const getGoogleAccessToken = async () => {
-  const { accessTokenExpiryTimeUnix } = store.getState()?.auth;
+  const { accessTokenExpiryTimeUnix } = store.getState().auth;
   if (accessTokenExpiryTimeUnix) {
     if (new Date().getTime() >= accessTokenExpiryTimeUnix) {
       const { success: successRefreshToken } =
@@ -51,7 +55,7 @@ export const signInWithGoogle = async () => {
         refreshToken: response.refreshToken,
       });
       store.dispatch(
-        updateGoogleAccessTokenExpiry(new Date().getTime() + 60 * 60 * 1000),
+        updateGoogleAccessTokenExpiry(new Date().getTime() + 60 * 60 * 1000)
       );
       return { success: true };
     } else {
@@ -65,7 +69,7 @@ export const signInWithGoogle = async () => {
 
 export const refreshGoogleAccessTokens = async () => {
   const refreshToken = await SecureStore.getItemAsync(
-    STORAGE_KEY_GOOGLE_REFRESH_TOKEN,
+    STORAGE_KEY_GOOGLE_REFRESH_TOKEN
   );
   const clientId = Platform.select({
     ios: process.env.IOS_CLIENT_ID,
@@ -78,7 +82,7 @@ export const refreshGoogleAccessTokens = async () => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-    },
+    }
   );
 
   if (response.status !== 200) {
@@ -94,8 +98,8 @@ export const refreshGoogleAccessTokens = async () => {
   await saveTokensToSecureStore({ accessToken: accessToken });
   store.dispatch(
     updateGoogleAccessTokenExpiry(
-      new Date().getTime() + accessTokenExpiryTimeUnix * 1000,
-    ),
+      new Date().getTime() + accessTokenExpiryTimeUnix * 1000
+    )
   );
   return { success: true };
 };

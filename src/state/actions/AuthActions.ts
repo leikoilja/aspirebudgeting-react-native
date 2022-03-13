@@ -4,7 +4,7 @@ export const RESET_GOOGLE_ACCESS_TOKEN_EXPIRY_TIME =
   "RESET_GOOGLE_ACCESS_TOKEN_EXPIRY_TIME";
 
 export const updateGoogleAccessTokenExpiry = (
-  accessTokenExpiryTimeUnix: number,
+  accessTokenExpiryTimeUnix: number
 ) => ({
   type: UPDATE_GOOGLE_ACCESS_TOKEN_EXPIRY,
   accessTokenExpiryTimeUnix,

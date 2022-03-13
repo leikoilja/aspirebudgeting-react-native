@@ -1,5 +1,9 @@
-import * as SecureStore from "expo-secure-store";
-import { STORAGE_KEY_GOOGLE_ACCESS_TOKEN } from "@const";
+/*
+ eslint-disable
+ @typescript-eslint/no-unsafe-assignment,
+ @typescript-eslint/no-unsafe-member-access,
+ @typescript-eslint/restrict-template-expressions
+ */
 import { getGoogleAccessToken } from "./GoogleAuthApi";
 
 export const loadMyUserProfile = async () => {
@@ -11,7 +15,7 @@ export const loadMyUserProfile = async () => {
         "Content-Type": "application/json; charset=UTF-8",
         Authorization: `Bearer ${accessToken}`,
       },
-    },
+    }
   )
     .then((response) => response.json())
     .then((data) => {

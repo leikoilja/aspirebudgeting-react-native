@@ -1,3 +1,13 @@
+/*
+ eslint-disable
+ @typescript-eslint/no-misused-promises,
+ @typescript-eslint/no-unsafe-assignment,
+ @typescript-eslint/no-unsafe-call,
+ @typescript-eslint/no-unsafe-member-access,
+ @typescript-eslint/no-unsafe-return,
+ @typescript-eslint/restrict-template-expressions,
+ */
+import React from "react";
 import { useSelector } from "react-redux";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { store } from "@state/store";
@@ -5,10 +15,7 @@ import { updateUserProfile } from "@actions/UserActions";
 import { resetAccessTokenExpiryTime } from "@actions/AuthActions";
 import { signInWithGoogle } from "../auth/GoogleAuthApi";
 import { loadMyUserProfile } from "../auth/GoogleApi";
-import {
-  saveTokensToSecureStore,
-  removeTokensFromSecureStore,
-} from "@state/secureStore";
+import { removeTokensFromSecureStore } from "@state/secureStore";
 
 const SettingsScreen = () => {
   const auth = useSelector((state) => state.auth);
@@ -26,7 +33,7 @@ const SettingsScreen = () => {
             email,
             firstName,
             lastName,
-          }),
+          })
         );
       }
     } else {
