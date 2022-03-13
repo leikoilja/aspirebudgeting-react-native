@@ -9,6 +9,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import authReducer from "./reducers/AuthReducer";
 import userReducer from "./reducers/UserReducer";
 
 const persistConfig = {
@@ -18,6 +19,7 @@ const persistConfig = {
 };
 
 const reducers = combineReducers({
+  auth: authReducer,
   user: userReducer,
 });
 

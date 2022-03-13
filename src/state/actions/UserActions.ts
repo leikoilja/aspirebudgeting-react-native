@@ -1,6 +1,8 @@
-export const UPDATE_USERNAME = "UPDATE_USERNAME";
+import { UserProfile } from "@types";
 
-export const updateUsername = (username: string) => ({
-  type: UPDATE_USERNAME,
-  username,
+export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE";
+
+export const updateUserProfile = (userProfile: UserProfile) => ({
+  type: UPDATE_USER_PROFILE,
+  userProfile,
 });
