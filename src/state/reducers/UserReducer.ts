@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { UPDATE_USER_PROFILE } from "@actions/UserActions";
+import { UPDATE_USER_PROFILE, RESET_USER_PROFILE } from "@actions/UserActions";
 import { UserProfile } from "@types";
 
 const INITIAL_STATE: UserProfile = {
@@ -13,6 +13,8 @@ const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
     case UPDATE_USER_PROFILE:
       return { ...action.userProfile };
+    case RESET_USER_PROFILE:
+      return INITIAL_STATE;
     default:
       return state;
   }

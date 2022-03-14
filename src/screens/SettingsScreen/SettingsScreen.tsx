@@ -9,13 +9,14 @@
  */
 import React from "react";
 import { useSelector } from "react-redux";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button } from "react-native";
 import { store } from "@state/store";
-import { updateUserProfile } from "@actions/UserActions";
+import { updateUserProfile, resetUserProfile } from "@actions/UserActions";
 import { resetAccessTokenExpiryTime } from "@actions/AuthActions";
-import { signInWithGoogle } from "../auth/GoogleAuthApi";
-import { loadMyUserProfile } from "../auth/GoogleApi";
+import { loadMyUserProfile } from "@auth/GoogleApi";
+import { signInWithGoogle } from "@auth/GoogleAuthApi";
 import { removeTokensFromSecureStore } from "@state/secureStore";
+import styles from "./SettingsScreen.modules.css";
 
 const SettingsScreen = () => {
   const auth = useSelector((state) => state.auth);
@@ -44,6 +45,7 @@ const SettingsScreen = () => {
   const onLogoutPress = async () => {
     await removeTokensFromSecureStore();
     store.dispatch(resetAccessTokenExpiryTime());
+    store.dispatch(resetUserProfile());
   };
 
   return (
@@ -54,11 +56,6 @@ const SettingsScreen = () => {
           ? `Successfully signed in as ${user.firstName} ${user.lastName} (${user.email})`
           : "Not yet signed in"}
       </Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
       <Button
         title={
           auth.accessTokenExpiryTimeUnix
@@ -70,22 +67,5 @@ const SettingsScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 10,
-    height: 1,
-    width: "80%",
-  },
-});
 
 export default SettingsScreen;
