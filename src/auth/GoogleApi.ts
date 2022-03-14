@@ -7,7 +7,7 @@
 import { getGoogleAccessToken } from "./GoogleAuthApi";
 
 export const loadMyUserProfile = async () => {
-  const accessToken = getGoogleAccessToken();
+  const accessToken = await getGoogleAccessToken();
   const response = fetch(
     "https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses",
     {
