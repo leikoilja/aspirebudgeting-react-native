@@ -14,19 +14,14 @@ import { store, persistor } from "@state/store";
 
 export default function App() {
   const colorScheme = useColorScheme();
-
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <SafeAreaProvider>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
-          </SafeAreaProvider>
-        </PersistGate>
-      </Provider>
-    );
-  }
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <SafeAreaProvider>
+          <Navigation colorScheme={colorScheme} />
+          <StatusBar />
+        </SafeAreaProvider>
+      </PersistGate>
+    </Provider>
+  );
 }

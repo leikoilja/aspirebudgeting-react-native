@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "aspirebudgeting_react_native",
-    "slug": "aspirebudgeting_react_native",
+    "name": "aspirebudgeting-react-native",
+    "slug": "aspirebudgeting-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
