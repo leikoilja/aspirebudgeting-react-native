@@ -9,3 +9,16 @@
   color: blue;
   font-weight: bold;
 }
+
+.button {
+  background-color: green;
+}
+
+.button_container {
+  width: 300;
+  margin-top: 20;
+}
+
+.button_title {
+  color: white;
+}
