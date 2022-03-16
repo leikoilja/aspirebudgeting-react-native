@@ -16,7 +16,6 @@
   budgeting spreadsheet enthusiasts.
 </p>
 
-
 <details open="open">
   <summary>Table of Contents</summary>
 
@@ -37,9 +36,9 @@ manage one's aspirebudgeting google sheet.
 ## Supported platforms
 
 We currently support:
+
 - iOS
 - Android
-
 
 ## Contribution
 

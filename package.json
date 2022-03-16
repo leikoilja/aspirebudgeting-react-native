@@ -60,7 +60,7 @@
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "jest-expo": "~44.0.1",
-    "prettier": "^2.5.1",
+    "prettier": "2.5.1",
     "react-native-css-transformer": "^1.2.4",
     "react-test-renderer": "17.0.1",
     "ts-jest": "^27.1.3",
