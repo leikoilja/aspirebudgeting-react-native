@@ -10,6 +10,7 @@ import { ThemeProvider } from "react-native-elements";
 
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
+import { theme } from "./theme/theme";
 
 import { store, persistor } from "@state/store";
 
@@ -19,7 +20,7 @@ export default function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <SafeAreaProvider>
-          <ThemeProvider useDark={colorScheme === "dark"}>
+          <ThemeProvider useDark={colorScheme === "dark"} theme={theme}>
             <Navigation colorScheme={colorScheme} />
             <StatusBar />
           </ThemeProvider>

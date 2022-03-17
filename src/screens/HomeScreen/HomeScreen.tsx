@@ -6,9 +6,9 @@
  @typescript-eslint/no-unsafe-member-access
  */
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { useSelector } from "react-redux";
-import { Button } from "react-native-elements";
+import { Button, Text } from "react-native-elements";
 import styles from "./HomeScreen.modules.css";
 
 const HomeScreen = () => {
@@ -16,14 +16,13 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>This is styled using css</Text>
-      <Text>Hey, {user.firstName ? user.firstName : "stranger"}</Text>
-      <Button
-        title="Green Button"
-        buttonStyle={styles.button}
-        containerStyle={styles.button_container}
-        titleStyle={styles.button_title}
-      />
+      <Text h2 style={styles.title}>
+        This is styled using css
+      </Text>
+      <Text h3 style={styles.text_username}>
+        Hey, {user.firstName ? user.firstName : "stranger"}
+      </Text>
+      <Button title="Button" />
     </View>
   );
 };
