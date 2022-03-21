@@ -17,7 +17,6 @@ DO NOT DELETE ANYTHING FROM THIS TEMPLATE.
 
 <!-- If you are not using the newest version, download and try that before opening an issue.  -->
 
-
 ## Logs
 
 <!-- Paste logs below here-->
