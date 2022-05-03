@@ -18,14 +18,22 @@ import { ColorSchemeName, Pressable } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
+
+import AuthenticationScreen from "../screens/AuthenticationScreen/AuthenticationScreen";
+import AccountsScreen from "../screens/AccountsScreen/AccountsScreen";
+import BudgetScreen from "../screens/BudgetScreen/BudgetScreen";
+import ReportsScreen from "../screens/ReportsScreen/ReportsScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import HomeScreen from "../screens/HomeScreen/HomeScreen";
+import OfflineScreen from "../screens/OfflineScreen/OfflineScreen";
 import SettingsScreen from "../screens/SettingsScreen/SettingsScreen";
+import SheetSelectionScreen from "../screens/SheetSelectionScreen/SheetSelectionScreen";
+
 import {
+  MainStackParamList,
   RootStackParamList,
-  RootTabParamList,
-  RootTabScreenProps,
+  AppStackParamList,
+  SetupStackParamList,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
@@ -43,52 +51,87 @@ export default function Navigation({
   );
 }
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/docs/modal
- */
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Root"
-        component={BottomTabNavigator}
+    <RootStack.Navigator>
+      <RootStack.Screen
+        name="MainStack"
+        component={MainNavigator}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
+      <RootStack.Screen
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
-    </Stack.Navigator>
+      <RootStack.Group screenOptions={{ presentation: "modal" }}>
+        <RootStack.Screen name="Modal" component={ModalScreen} />
+      </RootStack.Group>
+    </RootStack.Navigator>
   );
 }
 
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const MainStack = createNativeStackNavigator<MainStackParamList>();
 
-function BottomTabNavigator() {
+function MainNavigator() {
+  return (
+    <MainStack.Navigator initialRouteName="AppStack">
+      <MainStack.Screen
+        name="SetupStack"
+        component={SetupNavigator}
+        options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="AppStack"
+        component={AppNavigator}
+        options={{ headerShown: false }}
+      />
+    </MainStack.Navigator>
+  );
+}
+
+const SetupStack = createNativeStackNavigator<SetupStackParamList>();
+
+function SetupNavigator() {
+  return (
+    <SetupStack.Navigator>
+      <SetupStack.Screen
+        name="AuthenticationScreen"
+        component={AuthenticationScreen}
+        options={{ headerShown: false }}
+      />
+      <SetupStack.Screen
+        name="OfflineScreen"
+        component={OfflineScreen}
+        options={{ headerShown: false }}
+      />
+      <SetupStack.Screen
+        name="SheetSelectionScreen"
+        component={SheetSelectionScreen}
+        options={{ headerShown: false }}
+      />
+    </SetupStack.Navigator>
+  );
+}
+
+const AppStack = createBottomTabNavigator<AppStackParamList>();
+
+function AppNavigator() {
   const colorScheme = useColorScheme();
 
   return (
-    <BottomTab.Navigator
-      initialRouteName="HomeScreen"
+    <AppStack.Navigator
+      initialRouteName="AccountsScreen"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
-      <BottomTab.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={({ navigation }: RootTabScreenProps<"HomeScreen">) => ({
-          title: "Home Screen",
+      <AppStack.Screen
+        name="AccountsScreen"
+        component={AccountsScreen}
+        options={({ navigation }) => ({
+          title: "Accounts Screen",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
@@ -106,7 +149,23 @@ function BottomTabNavigator() {
           ),
         })}
       />
-      <BottomTab.Screen
+      <AppStack.Screen
+        name="BudgetScreen"
+        component={BudgetScreen}
+        options={{
+          title: "Budget",
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <AppStack.Screen
+        name="ReportsScreen"
+        component={ReportsScreen}
+        options={{
+          title: "Reports",
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <AppStack.Screen
         name="SettingsScreen"
         component={SettingsScreen}
         options={{
@@ -114,7 +173,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
-    </BottomTab.Navigator>
+    </AppStack.Navigator>
   );
 }
 

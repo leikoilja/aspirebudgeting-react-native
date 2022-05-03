@@ -9,9 +9,9 @@ import React from "react";
 import { View } from "react-native";
 import { useSelector } from "react-redux";
 import { Button, Text } from "react-native-elements";
-import styles from "./HomeScreen.modules.css";
+import styles from "./AccountsScreen.modules.css";
 
-const HomeScreen = () => {
+const AccountsScreen = () => {
   const user = useSelector((state) => state.user);
 
   return (
@@ -27,4 +27,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default AccountsScreen;
