@@ -13,6 +13,8 @@ import { store } from "@state/store";
 import { updateGoogleAccessTokenExpiry } from "@actions/AuthActions";
 import { saveTokensToSecureStore } from "@state/secureStore";
 import {
+  GOOGLE_SCOPE_DRIVE_READONLY,
+  GOOGLE_SCOPE_SPREADSHEETS,
   GOOGLE_SCOPE_USER_EMAIL,
   GOOGLE_SCOPE_USER_PROFILE,
   STORAGE_KEY_GOOGLE_ACCESS_TOKEN,
@@ -46,7 +48,12 @@ export const signInWithGoogle = async () => {
       expoClientId: process.env.EXPO_CLIENT_ID,
       androidClientId: process.env.ANDROID_CLIENT_ID,
       iosClientId: process.env.IOS_CLIENT_ID,
-      scopes: [GOOGLE_SCOPE_USER_EMAIL, GOOGLE_SCOPE_USER_PROFILE],
+      scopes: [
+        GOOGLE_SCOPE_USER_EMAIL,
+        GOOGLE_SCOPE_USER_PROFILE,
+        GOOGLE_SCOPE_SPREADSHEETS,
+        GOOGLE_SCOPE_DRIVE_READONLY,
+      ],
     });
 
     if (response.type === "success") {
