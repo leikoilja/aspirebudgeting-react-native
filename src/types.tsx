@@ -41,3 +41,9 @@ export type UserProfile = {
   lastName: string;
   language: string;
 };
+
+export type Account = {
+  id: number;
+  name: string;
+  amount: number;
+};

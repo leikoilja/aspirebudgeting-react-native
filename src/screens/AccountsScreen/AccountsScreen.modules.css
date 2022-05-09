@@ -10,6 +10,7 @@
   font-weight: bold;
 }
 
-.text_username {
-  padding: 20px;
+.accounts_wrapper {
+  padding-top: 30px;
+  width: 90%;
 }
