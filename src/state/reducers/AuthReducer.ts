@@ -11,7 +11,9 @@ const INITIAL_STATE = {
 const authReducer = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
     case UPDATE_GOOGLE_ACCESS_TOKEN_EXPIRY:
-      return { accessTokenExpiryTimeUnix: action.accessTokenExpiryTimeUnix };
+      const accessTokenExpiryTimeUnix =
+        new Date().getTime() + action.expiresIn * 1000;
+      return { accessTokenExpiryTimeUnix: accessTokenExpiryTimeUnix };
     case RESET_GOOGLE_ACCESS_TOKEN_EXPIRY_TIME:
       return { accessTokenExpiryTimeUnix: 0 };
     default:

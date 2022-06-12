@@ -15,6 +15,8 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName, Pressable } from "react-native";
+import { useSelector } from "react-redux";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -30,7 +32,6 @@ import SettingsScreen from "../screens/SettingsScreen/SettingsScreen";
 import SheetSelectionScreen from "../screens/SheetSelectionScreen/SheetSelectionScreen";
 
 import {
-  MainStackParamList,
   RootStackParamList,
   AppStackParamList,
   SetupStackParamList,
@@ -54,41 +55,44 @@ export default function Navigation({
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const auth = useSelector((state) => state.auth);
+  const netInfo = useNetInfo();
   return (
     <RootStack.Navigator>
-      <RootStack.Screen
-        name="MainStack"
-        component={MainNavigator}
-        options={{ headerShown: false }}
-      />
+      {netInfo.isConnected ? (
+        <>
+          {auth.accessTokenExpiryTimeUnix ? (
+            <>
+              <RootStack.Screen
+                name="AppStack"
+                component={AppNavigator}
+                options={{ headerShown: false }}
+              />
+            </>
+          ) : (
+            <RootStack.Screen
+              name="SetupStack"
+              component={SetupNavigator}
+              options={{ headerShown: false }}
+            />
+          )}
+        </>
+      ) : (
+        <SetupStack.Screen
+          name="OfflineScreen"
+          component={OfflineScreen}
+          options={{ headerShown: false }}
+        />
+      )}
+      <RootStack.Group screenOptions={{ presentation: "modal" }}>
+        <RootStack.Screen name="Modal" component={ModalScreen} />
+      </RootStack.Group>
       <RootStack.Screen
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
-      <RootStack.Group screenOptions={{ presentation: "modal" }}>
-        <RootStack.Screen name="Modal" component={ModalScreen} />
-      </RootStack.Group>
     </RootStack.Navigator>
-  );
-}
-
-const MainStack = createNativeStackNavigator<MainStackParamList>();
-
-function MainNavigator() {
-  return (
-    <MainStack.Navigator initialRouteName="AppStack">
-      <MainStack.Screen
-        name="SetupStack"
-        component={SetupNavigator}
-        options={{ headerShown: false }}
-      />
-      <MainStack.Screen
-        name="AppStack"
-        component={AppNavigator}
-        options={{ headerShown: false }}
-      />
-    </MainStack.Navigator>
   );
 }
 
@@ -100,11 +104,6 @@ function SetupNavigator() {
       <SetupStack.Screen
         name="AuthenticationScreen"
         component={AuthenticationScreen}
-        options={{ headerShown: false }}
-      />
-      <SetupStack.Screen
-        name="OfflineScreen"
-        component={OfflineScreen}
         options={{ headerShown: false }}
       />
       <SetupStack.Screen

@@ -21,13 +21,15 @@
       "sourceExts": ["js", "jsx", "css"]
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.community.aspirebudget"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.community.aspirebudget"
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
