@@ -13,7 +13,7 @@ import { View } from "react-native";
 import { Button, Text } from "react-native-elements";
 import { store } from "@state/store";
 import { resetUserProfile } from "@actions/UserActions";
-import { resetAccessTokenExpiryTime } from "@actions/AuthActions";
+import { logout } from "@actions/AuthActions";
 import { removeTokensFromSecureStore } from "@state/secureStore";
 import { Loader } from "@components/Loader/Loader";
 import styles from "./SettingsScreen.modules.css";
@@ -26,7 +26,7 @@ const SettingsScreen = () => {
     setLoading(true);
     await removeTokensFromSecureStore();
     store.dispatch(resetUserProfile());
-    store.dispatch(resetAccessTokenExpiryTime());
+    store.dispatch(logout());
   };
 
   return (

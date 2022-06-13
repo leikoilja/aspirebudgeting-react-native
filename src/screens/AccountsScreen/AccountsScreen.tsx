@@ -7,52 +7,47 @@
  */
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
+import { Button, Text, ListItem } from "react-native-elements";
+import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { Button, Text } from "react-native-elements";
-import { loadAccountBalances } from "@auth/GoogleApi";
 import { Loader } from "@components/Loader/Loader";
-import styles from "./AccountsScreen.modules.css";
-import { ListItem } from "react-native-elements";
 import { Account } from "@types";
+import AccountServices from "@api/AccountServices";
+import styles from "./AccountsScreen.modules.css";
 
 const AccountsScreen = () => {
   const user = useSelector((state) => state.user);
-  const [loading, setLoading] = useState(false);
-  const [accountBalances, setAccountBalances] = useState([]);
+  const [accountsInfo, setAccountsInfo] = useState([]);
 
-  const fetchAccountBalances = async () => {
-    try {
-      let response = await fetch("https://randomuser.me/api");
-      let json = await response.json();
-      return { success: true, data: json };
-    } catch (error) {
-      console.log(error);
-      return { success: false };
+  const { isLoading: isLoadingAccounts, refetch: fetchAllAccounts } = useQuery<
+    Account[],
+    Error
+  >(
+    "query-accounts",
+    async () => {
+      return await AccountServices.loadAccountBalances();
+    },
+    {
+      enabled: true,
+      onSuccess: (data) => {
+        setAccountsInfo(data);
+      },
+      onError: (error: any) => {
+        console.error("Error loading accounts data", error);
+      },
     }
-  };
-
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const response = await loadAccountBalances();
-      if (response.success) {
-        console.log("data", response.data);
-        setAccountBalances(response.data);
-        setLoading(false);
-      }
-    })();
-  }, []);
+  );
 
   return (
     <View style={styles.container}>
       <Text h2 style={styles.title}>
         Account Balances
       </Text>
-      {loading ? (
+      {isLoadingAccounts ? (
         <Loader />
       ) : (
         <View style={styles.accounts_wrapper}>
-          {accountBalances.map((account: Account) => (
+          {accountsInfo.map((account: Account) => (
             <ListItem key={account.id} bottomDivider>
               <ListItem.Content>
                 <ListItem.Title>{account.name}</ListItem.Title>
@@ -60,6 +55,10 @@ const AccountsScreen = () => {
               </ListItem.Content>
             </ListItem>
           ))}
+          <Button
+            title={"Refetch all accounts data"}
+            onPress={fetchAllAccounts}
+          />
         </View>
       )}
     </View>

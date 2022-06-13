@@ -11,7 +11,7 @@ module.exports = function (api) {
         {
           root: ["./src"],
           alias: {
-            "@auth": "./src/auth",
+            "@api": "./src/api",
             "@actions": "./src/state/actions",
             "@const": "./src/const.ts",
             "@components": "./src/components",

@@ -61,7 +61,7 @@ function RootNavigator() {
     <RootStack.Navigator>
       {netInfo.isConnected ? (
         <>
-          {auth.accessTokenExpiryTimeUnix ? (
+          {auth.loggedIn ? (
             <>
               <RootStack.Screen
                 name="AppStack"

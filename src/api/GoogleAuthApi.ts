@@ -11,10 +11,7 @@ import * as Google from "expo-auth-session/providers/google";
 import * as SecureStore from "expo-secure-store";
 import * as AuthSession from "expo-auth-session";
 import { store } from "@state/store";
-import {
-  updateGoogleAccessTokenExpiry,
-  resetAccessTokenExpiryTime,
-} from "@actions/AuthActions";
+import { updateGoogleAccessTokenExpiry, logout } from "@actions/AuthActions";
 import { saveTokensToSecureStore } from "@state/secureStore";
 import {
   GOOGLE_AUTH_URL,
@@ -40,7 +37,7 @@ export const getGoogleAccessToken = async () => {
       if (!successRefreshToken) {
         const error = "Failed to refresh google access tokens";
         console.error(error);
-        store.dispatch(resetAccessTokenExpiryTime());
+        store.dispatch(logout());
         return { success: false, error };
       }
     }
