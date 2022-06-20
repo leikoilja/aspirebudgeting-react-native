@@ -10,8 +10,8 @@ import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import * as SecureStore from "expo-secure-store";
 import * as AuthSession from "expo-auth-session";
-import { store } from "@state/store";
-import { updateGoogleAccessTokenExpiry, logout } from "@actions/AuthActions";
+import { RootState, store } from "@state/store";
+import { updateGoogleAccessTokenExpiry, logout } from "@slices/AuthSlice";
 import { saveTokensToSecureStore } from "@state/secureStore";
 import {
   GOOGLE_AUTH_URL,

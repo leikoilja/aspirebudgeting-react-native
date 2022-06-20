@@ -26,6 +26,7 @@ module.exports = {
     indent: ["error", 2, { SwitchCase: 1 }],
     quotes: ["error", "double", { avoidEscape: true }],
     "react/no-unescaped-entities": 0,
+    "@typescript-eslint/no-non-null-assertion": "off"
   },
   settings: {
     react: {
