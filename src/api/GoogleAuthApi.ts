@@ -10,7 +10,7 @@ import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import * as SecureStore from "expo-secure-store";
 import * as AuthSession from "expo-auth-session";
-import { RootState, store } from "@state/store";
+import { store } from "@state/store";
 import { updateGoogleAccessTokenExpiry, logout } from "@slices/AuthSlice";
 import { saveTokensToSecureStore } from "@state/secureStore";
 import {
@@ -73,11 +73,15 @@ export const useGoogleSignIn = () => {
       },
     });
 
-  const exchangeCodeForTokens = (code, code_verifier, redirectUrl) => {
+  const exchangeCodeForTokens = (
+    code: string,
+    code_verifier: string,
+    redirectUrl: string
+  ) => {
     const tokenResult = AuthSession.exchangeCodeAsync(
       {
         code: code,
-        clientId: process.env.EXPO_CLIENT_ID,
+        clientId: process.env.EXPO_CLIENT_ID!,
         clientSecret: process.env.EXPO_CLIENT_SECRET,
         redirectUri: redirectUrl,
         extraParams: {
@@ -92,9 +96,11 @@ export const useGoogleSignIn = () => {
   const promptGoogleSignIn = async () => {
     const authResponse = await popAuthenticationModal();
     // Exchange authentication code to tokens
+    const authCode =
+      authResponse.type == "success" ? authResponse.params.code : "";
     const { accessToken, expiresIn, refreshToken } =
       await exchangeCodeForTokens(
-        authResponse.params.code,
+        authCode,
         authRequest?.codeVerifier ? authRequest.codeVerifier : "",
         redirectUrl
       );

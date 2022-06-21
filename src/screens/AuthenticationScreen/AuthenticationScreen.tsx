@@ -15,11 +15,10 @@ import styles from "./AuthenticationScreen.modules.css";
 
 const AuthenticationScreen = () => {
   const [loading, setLoading] = useState(false);
-  const { loggedIn } = useSelector((state) => state.auth);
 
   const promptGoogleSignIn = useGoogleSignIn();
 
-  const { isLoading, refetch: fetchUserProfile } = useQuery<UserProfile, Error>(
+  const { refetch: fetchUserProfile } = useQuery<UserProfile, Error>(
     "query-user-data",
     async () => {
       return await UserServices.loadUserProfile();

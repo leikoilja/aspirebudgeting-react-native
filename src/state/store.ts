@@ -19,10 +19,12 @@ import {
   REGISTER,
 } from "redux-persist";
 import authReducer from "@slices/AuthSlice";
+import sheetReducer from "@slices/SheetSlice";
 import userReducer from "@slices/UserSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  sheet: sheetReducer,
   user: userReducer,
 });
 
@@ -46,5 +48,5 @@ const store = configureStore({
 });
 
 const persistor = persistStore(store);
-export type RootState = ReturnType<typeof reducers>;
-export { store, persistor };
+export type RootState = ReturnType<typeof store.getState>;
+export { store, persistor, rootReducer };

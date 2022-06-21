@@ -1,6 +1,29 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@api/*": [
+        "./src/api/*"
+      ],
+      "@slices/*": [
+        "./src/state/slices/*"
+      ],
+      "@const": [
+        "./src/const.ts"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@libs/*": [
+        "./src/libs/*"
+      ],
+      "@state/*": [
+        "./src/state/*"
+      ],
+      "@types": [
+        "./src/types.tsx"
+      ]
+    }
   }
 }

@@ -11,6 +11,9 @@ import {
 export const saveTokensToSecureStore = async ({
   accessToken,
   refreshToken,
+}: {
+  accessToken: string;
+  refreshToken?: string;
 }) => {
   await SecureStore.setItemAsync(STORAGE_KEY_GOOGLE_ACCESS_TOKEN, accessToken);
   if (refreshToken)

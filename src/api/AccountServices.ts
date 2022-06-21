@@ -5,22 +5,27 @@
  @typescript-eslint/no-unsafe-member-access,
  @typescript-eslint/no-unsafe-return,
  */
-import { API_DEFAULT_PARAMS, sheetApiClient } from "./api";
+import { store } from "@state/store";
 import { Account } from "@types";
+import { API_DEFAULT_PARAMS, sheetApiClient } from "./api";
 
 const loadAccountBalances = async () => {
-  const responseJson = await sheetApiClient.get("/values/Dashboard!B8:C", {
-    params: {
-      ...API_DEFAULT_PARAMS,
-    },
-  });
+  const { spreadsheetId }: { spreadsheetId: string } = store.getState().sheet;
+  const responseJson = await sheetApiClient.get(
+    `${spreadsheetId}/values/Dashboard!B8:C`,
+    {
+      params: {
+        ...API_DEFAULT_PARAMS,
+      },
+    }
+  );
 
   if (!responseJson.data || !responseJson.data.values) {
     return [];
   }
 
   const extractedValues = responseJson.data.values.reduce(
-    (accounts: Account[], row: [], index: number) => {
+    (accounts: Account[], row: string[], index: number) => {
       if (index % 2 == 0) {
         accounts.push({
           id: index,

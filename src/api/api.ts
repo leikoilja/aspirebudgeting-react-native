@@ -5,29 +5,28 @@
  @typescript-eslint/no-unsafe-member-access,
  @typescript-eslint/restrict-template-expressions,
  */
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+
+import { getGoogleAccessToken } from "./GoogleAuthApi";
 import { GOOGLE_SHEETS_BASE_URL, GOOGLE_PEOPLE_BASE_URL } from "@const";
-import { getGoogleAccessToken } from "@api/GoogleAuthApi";
 
 export const API_DEFAULT_PARAMS = {
   valueRenderOption: "UNFORMATTED_VALUE",
 };
 
-const spreadsheetId = "1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_opME";
-
 export const sheetApiClient = axios.create({
-  baseURL: `${GOOGLE_SHEETS_BASE_URL}/${spreadsheetId}`,
+  baseURL: GOOGLE_SHEETS_BASE_URL,
   headers: {
     "Content-type": "application/json",
   },
 });
 
 sheetApiClient.interceptors.request.use(
-  async (config) => {
+  async (config: AxiosRequestConfig) => {
     // Get token and add it to header "Authorization"
     const accessToken = await getGoogleAccessToken();
     if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      config.headers!.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -35,7 +34,7 @@ sheetApiClient.interceptors.request.use(
 );
 
 export const peopleApiClient = axios.create({
-  baseURL: `${GOOGLE_PEOPLE_BASE_URL}`,
+  baseURL: GOOGLE_PEOPLE_BASE_URL,
   headers: {
     "Content-type": "application/json",
   },
@@ -46,7 +45,7 @@ peopleApiClient.interceptors.request.use(
     // Get token and add it to header "Authorization"
     const accessToken = await getGoogleAccessToken();
     if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      config.headers!.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },

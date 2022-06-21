@@ -10,10 +10,10 @@ const authSlice = createSlice({
     login: (state) => {
       state.loggedIn = true;
     },
-    updateGoogleAccessTokenExpiry: (state, action: PayloadAction<string>) => {
+    updateGoogleAccessTokenExpiry: (state, action: PayloadAction<number>) => {
       const accessTokenExpiryTimeUnix =
-        new Date().getTime() + action.expiresIn * 1000;
-      state.accessTokenExpiryTimeUnix = action.payload;
+        new Date().getTime() + action.payload * 1000;
+      state.accessTokenExpiryTimeUnix = accessTokenExpiryTimeUnix;
     },
     logout: (state) => {
       state.loggedIn = false;
