@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export const initialState = {
+  accessTokenExpiryTimeUnix: 0,
+  loggedIn: false,
+};
+
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    accessTokenExpiryTimeUnix: 0,
-    loggedIn: false,
-  },
+  initialState: initialState,
   reducers: {
     login: (state) => {
       state.loggedIn = true;

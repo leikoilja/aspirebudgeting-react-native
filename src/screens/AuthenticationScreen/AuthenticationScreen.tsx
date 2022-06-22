@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { Button, Text } from "react-native-elements";
-import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import UserServices from "@api/UserServices";
 import { useGoogleSignIn } from "@api/GoogleAuthApi";
@@ -25,7 +24,7 @@ const AuthenticationScreen = () => {
     },
     {
       enabled: false,
-      onSuccess: (data) => {
+      onSuccess: (data: UserProfile) => {
         const { email, firstName, lastName } = data;
         store.dispatch(
           updateUserProfile({

@@ -20,7 +20,7 @@ import type { RootState } from "@state/store";
 // With this, you can define the type for your store.
 // The type of a configureStore() is called EnhancedStore,
 // which in turn receives the store state as a generic (the same from store.getState()).
-type ReducerTypes = Pick<RootState, "auth" | "user">;
+type ReducerTypes = Pick<RootState, "auth" | "sheet" | "user">;
 type TStore = EnhancedStore<ReducerTypes>;
 
 type CustomRenderOptions = {

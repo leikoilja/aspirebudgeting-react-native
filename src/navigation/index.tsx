@@ -5,6 +5,7 @@
  @typescript-eslint/no-unsafe-return,
  @typescript-eslint/no-unsafe-member-access
  */
+import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
@@ -13,11 +14,11 @@ import {
   DarkTheme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as React from "react";
 import { ColorSchemeName, Pressable } from "react-native";
 import { useSelector } from "react-redux";
 import { useNetInfo } from "@react-native-community/netinfo";
 
+import type { RootState } from "@state/store";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 
@@ -55,13 +56,20 @@ export default function Navigation({
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state: RootState) => state.auth);
+  const sheet = useSelector((state: RootState) => state.sheet);
   const netInfo = useNetInfo();
+
+  const userIsConfigured = () => {
+    if (auth.loggedIn && sheet.spreadsheetId) return true;
+    return false;
+  };
+
   return (
     <RootStack.Navigator>
       {netInfo.isConnected ? (
         <>
-          {auth.loggedIn ? (
+          {userIsConfigured() ? (
             <>
               <RootStack.Screen
                 name="AppStack"
@@ -78,20 +86,20 @@ function RootNavigator() {
           )}
         </>
       ) : (
-        <SetupStack.Screen
+        <RootStack.Screen
           name="OfflineScreen"
           component={OfflineScreen}
           options={{ headerShown: false }}
         />
       )}
-      <RootStack.Group screenOptions={{ presentation: "modal" }}>
-        <RootStack.Screen name="Modal" component={ModalScreen} />
-      </RootStack.Group>
       <RootStack.Screen
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
+      <RootStack.Group screenOptions={{ presentation: "modal" }}>
+        <RootStack.Screen name="Modal" component={ModalScreen} />
+      </RootStack.Group>
     </RootStack.Navigator>
   );
 }
@@ -99,18 +107,22 @@ function RootNavigator() {
 const SetupStack = createNativeStackNavigator<SetupStackParamList>();
 
 function SetupNavigator() {
+  const auth = useSelector((state: RootState) => state.auth);
   return (
     <SetupStack.Navigator>
-      <SetupStack.Screen
-        name="AuthenticationScreen"
-        component={AuthenticationScreen}
-        options={{ headerShown: false }}
-      />
-      <SetupStack.Screen
-        name="SheetSelectionScreen"
-        component={SheetSelectionScreen}
-        options={{ headerShown: false }}
-      />
+      {!auth.loggedIn ? (
+        <SetupStack.Screen
+          name="AuthenticationScreen"
+          component={AuthenticationScreen}
+          options={{ headerShown: false }}
+        />
+      ) : (
+        <SetupStack.Screen
+          name="SheetSelectionScreen"
+          component={SheetSelectionScreen}
+          options={{ headerShown: false }}
+        />
+      )}
     </SetupStack.Navigator>
   );
 }

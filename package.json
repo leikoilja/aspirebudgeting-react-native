@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react-native": "^9.1.0",
     "@types/jest": "^28.1.1",
     "@types/react": "~17.0.21",
@@ -77,6 +78,7 @@
   },
   "private": true,
   "resolutions": {
-    "react-devtools-core": "4.14.0"
+    "react-devtools-core": "4.14.0",
+    "@types/react": "17.0.43"
   }
 }
