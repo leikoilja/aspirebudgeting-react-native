@@ -8,7 +8,11 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 import { getGoogleAccessToken } from "./GoogleAuthApi";
-import { GOOGLE_SHEETS_BASE_URL, GOOGLE_PEOPLE_BASE_URL } from "@const";
+import {
+  GOOGLE_SHEETS_BASE_URL,
+  GOOGLE_PEOPLE_BASE_URL,
+  GOOGLE_DRIVE_BASE_URL,
+} from "@const";
 
 export const API_DEFAULT_PARAMS = {
   valueRenderOption: "UNFORMATTED_VALUE",
@@ -41,6 +45,25 @@ export const peopleApiClient = axios.create({
 });
 
 peopleApiClient.interceptors.request.use(
+  async (config) => {
+    // Get token and add it to header "Authorization"
+    const accessToken = await getGoogleAccessToken();
+    if (accessToken) {
+      config.headers!.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+export const driveApiClient = axios.create({
+  baseURL: GOOGLE_DRIVE_BASE_URL,
+  headers: {
+    "Content-type": "application/json",
+  },
+});
+
+driveApiClient.interceptors.request.use(
   async (config) => {
     // Get token and add it to header "Authorization"
     const accessToken = await getGoogleAccessToken();

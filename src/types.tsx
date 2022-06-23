@@ -46,3 +46,9 @@ export type Account = {
   amount: number;
   lastUpdateOn?: string;
 };
+
+export type SpreadSheet = {
+  id: number;
+  uuid: string;
+  name: string;
+};

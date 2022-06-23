@@ -4,3 +4,8 @@
   justify-content: center;
   height: 100%;
 }
+
+.sheets_wrapper {
+  padding-top: 30px;
+  width: 90%;
+}

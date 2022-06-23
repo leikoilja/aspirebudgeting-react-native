@@ -9,7 +9,7 @@ import { store } from "@state/store";
 import { Account } from "@types";
 import { API_DEFAULT_PARAMS, sheetApiClient } from "./api";
 
-const loadAccountBalances = async () => {
+const loadAccountBalances = async (): Promise<Account[]> => {
   const { spreadsheetId }: { spreadsheetId: string } = store.getState().sheet;
   const responseJson = await sheetApiClient.get(
     `${spreadsheetId}/values/Dashboard!B8:C`,

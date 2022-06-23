@@ -5,9 +5,10 @@
  @typescript-eslint/no-unsafe-member-access,
  @typescript-eslint/restrict-template-expressions,
  */
+import { UserProfile } from "@types";
 import { peopleApiClient } from "./api";
 
-const loadUserProfile = async () => {
+const loadUserProfile = async (): Promise<UserProfile> => {
   const responseJson = await peopleApiClient.get("/", {
     params: {
       personFields: "names,emailAddresses",
@@ -17,6 +18,7 @@ const loadUserProfile = async () => {
     email: responseJson.data.emailAddresses[0].value,
     firstName: responseJson.data.names[0].givenName,
     lastName: responseJson.data.names[0].familyName,
+    language: "en",
   };
 };
 

@@ -48,3 +48,28 @@ export const userProfile = {
     },
   ],
 };
+
+export const availableSheets = {
+  kind: "drive#fileList",
+  incompleteSearch: false,
+  files: [
+    {
+      kind: "drive#file",
+      id: "1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_1234",
+      name: "test_file_1",
+      mimeType: "application/vnd.google-apps.spreadsheet",
+    },
+    {
+      kind: "drive#file",
+      id: "1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_5678",
+      name: "test_file_2",
+      mimeType: "application/vnd.google-apps.spreadsheet",
+    },
+    {
+      kind: "drive#file",
+      id: "1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_9012",
+      name: "test_file_3",
+      mimeType: "application/vnd.google-apps.spreadsheet",
+    },
+  ],
+};
