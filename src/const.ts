@@ -13,6 +13,8 @@ export const GOOGLE_SHEETS_BASE_URL =
 export const GOOGLE_PEOPLE_BASE_URL =
   "https://people.googleapis.com/v1/people/me";
 
+export const GOOGLE_DRIVE_BASE_URL = "https://www.googleapis.com/drive/v3";
+
 export const GOOGLE_AUTH_URL = "https://www.googleapis.com/oauth2/v4/token";
 
 export const STORAGE_KEY_GOOGLE_ACCESS_TOKEN = "googleAccessToken";

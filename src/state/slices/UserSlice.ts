@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserProfile } from "@types";
 
 const initialState = {
   email: "",
@@ -12,7 +13,8 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     resetUserProfile: () => initialState,
-    updateUserProfile: (state, action: PayloadAction<string>) => action.payload,
+    updateUserProfile: (_state, action: PayloadAction<UserProfile>) =>
+      action.payload,
   },
 });
 

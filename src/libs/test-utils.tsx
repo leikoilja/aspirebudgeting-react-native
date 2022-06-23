@@ -12,6 +12,7 @@ import {
 import { Provider } from "react-redux";
 import { rootReducer } from "@state/store";
 import type { RootState } from "@state/store";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 // Adopted from
 // https://stackoverflow.com/a/68016671/5818549
@@ -44,6 +45,13 @@ function render(ui: ReactElement, options?: CustomRenderOptions) {
 
   return rtlRender(ui, { wrapper: Wrapper, ...options });
 }
+
+export const TestWrapper = ({ children }: { children: JSX.Element }) => {
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+};
 
 // re-export everything
 export * from "@testing-library/react-native";

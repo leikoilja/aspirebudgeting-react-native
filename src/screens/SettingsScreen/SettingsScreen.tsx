@@ -11,15 +11,16 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { View } from "react-native";
 import { Button, Text } from "react-native-elements";
-import { store } from "@state/store";
+import { RootState, store } from "@state/store";
 import { resetUserProfile } from "@slices/UserSlice";
 import { logout } from "@slices/AuthSlice";
 import { removeTokensFromSecureStore } from "@state/secureStore";
 import { Loader } from "@components/Loader/Loader";
+import { setSpreadsheetId } from "@slices/SheetSlice";
 import styles from "./SettingsScreen.modules.css";
 
 const SettingsScreen = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state: RootState) => state.user);
   const [loading, setLoading] = useState(false);
 
   const onLogoutPress = async () => {
@@ -27,6 +28,7 @@ const SettingsScreen = () => {
     await removeTokensFromSecureStore();
     store.dispatch(resetUserProfile());
     store.dispatch(logout());
+    store.dispatch(setSpreadsheetId(""));
   };
 
   return (
