@@ -2,11 +2,11 @@ import * as GoogleAuthApi from "@api/GoogleAuthApi";
 import { GOOGLE_DRIVE_BASE_URL } from "@const";
 import { server, rest } from "../../testServer";
 import { availableSheets } from "../../api/tests/responses";
-import { render, TestWrapper, waitFor } from "@libs/test-utils";
+import { render, TestWrapper } from "@libs/test-utils";
 import SheetSelectionScreen from "./SheetSelectionScreen";
 import React from "react";
 
-beforeAll(() => {
+beforeEach(() => {
   jest
     .spyOn(GoogleAuthApi, "getGoogleAccessToken")
     .mockImplementation(() => Promise.resolve(""));
@@ -30,25 +30,19 @@ describe("Sheet Selection screen", () => {
     expect(getByText("Please wait")).toBeTruthy();
 
     // Assert list of available sheets
-    const testFile1 = await findByText("test_file_1");
-    expect(testFile1).toBeTruthy();
-    const testFile1Id = getByText(
-      "Sheet ID - 1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_1234"
-    );
-    expect(testFile1Id).toBeTruthy();
+    expect(await findByText("test_file_1")).toBeTruthy();
+    expect(
+      getByText("Sheet ID - 1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_1234")
+    ).toBeTruthy();
 
-    const testFile2 = getByText("test_file_2");
-    expect(testFile2).toBeTruthy();
-    const testFile2Id = getByText(
-      "Sheet ID - 1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_5678"
-    );
-    expect(testFile2Id).toBeTruthy();
+    expect(getByText("test_file_2")).toBeTruthy();
+    expect(
+      getByText("Sheet ID - 1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_5678")
+    ).toBeTruthy();
 
-    const testFile3 = getByText("test_file_3");
-    expect(testFile3).toBeTruthy();
-    const testFile3Id = getByText(
-      "Sheet ID - 1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_9012"
-    );
-    expect(testFile3Id).toBeTruthy();
+    expect(getByText("test_file_3")).toBeTruthy();
+    expect(
+      getByText("Sheet ID - 1kzH6JdkFtuS-Iy3CnaAxfaYnzJ7pwydu0nwhV3_9012")
+    ).toBeTruthy();
   });
 });
