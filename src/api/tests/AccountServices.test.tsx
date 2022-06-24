@@ -31,7 +31,7 @@ describe("Account Services in isolation", () => {
         name: "Checking",
       },
       {
-        amount: 0,
+        amount: 12700,
         id: 2,
         lastUpdateOn: "No recorded transactions",
         name: "Emergency Account",

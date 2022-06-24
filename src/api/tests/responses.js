@@ -4,7 +4,7 @@ export const accountsData = {
   values: [
     ["Checking", 8950],
     ["Last recorded transaction was over a month ago"],
-    ["Emergency Account", 0],
+    ["Emergency Account", 12700],
     ["No recorded transactions"],
     ["Stash Account", 10000],
     ["Last recorded transaction was over a month ago"],
